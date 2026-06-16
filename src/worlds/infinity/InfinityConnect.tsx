@@ -4,7 +4,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, Mail, Phone, MapPin, Send, HelpCircle, MessageSquare } from 'lucide-react';
+import { ChevronDown, Mail, Phone, MapPin, Send, HelpCircle } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -157,13 +157,13 @@ export function InfinityConnect() {
 
               {/* Contact Form */}
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                <FormField label="Name" name="name" form={form} required />
-                <FormField label="Email" name="email" type="email" form={form} required />
-                <FormField label="Company" name="company" form={form} />
+                <FormField label="Name" name="name" control={form.control} required />
+                <FormField label="Email" name="email" type="email" control={form.control} required />
+                <FormField label="Company" name="company" control={form.control} />
                 <FormField
                   label="Project Type"
                   name="projectType"
-                  as="select"
+                  type="select"
                   options={[
                     { value: 'ai-development', label: 'AI/ML Development' },
                     { value: 'automation', label: 'Intelligent Automation' },
@@ -171,10 +171,10 @@ export function InfinityConnect() {
                     { value: 'consulting', label: 'AI Consulting' },
                     { value: 'other', label: 'Other' },
                   ]}
-                  form={form}
+                  control={form.control}
                   required
                 />
-                <FormField label="Message" name="message" as="textarea" rows={5} form={form} required />
+                <FormField label="Message" name="message" type="textarea" control={form.control} required />
                 <button
                   type="submit"
                   className="w-full flex items-center justify-center gap-2 py-4 rounded-lg font-semibold transition-all hover:scale-[1.02] active:scale-[0.98]"

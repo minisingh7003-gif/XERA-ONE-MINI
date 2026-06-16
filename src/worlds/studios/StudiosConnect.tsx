@@ -203,11 +203,11 @@ export function StudiosConnect({ className }: StudiosConnectProps) {
 
               {/* Contact Form */}
               <form onSubmit={contactForm.handleSubmit(onContactSubmit)} className="space-y-4">
-                <FormField label="Name" name="name" form={contactForm} required />
-                <FormField label="Email" name="email" type="email" form={contactForm} required />
-                <FormField label="Phone" name="phone" type="tel" form={contactForm} />
-                <FormField label="Subject" name="subject" form={contactForm} required />
-                <FormField label="Message" name="message" as="textarea" rows={4} form={contactForm} required />
+                <FormField label="Name" name="name" control={contactForm.control} required />
+                <FormField label="Email" name="email" type="email" control={contactForm.control} required />
+                <FormField label="Phone" name="phone" type="tel" control={contactForm.control} />
+                <FormField label="Subject" name="subject" control={contactForm.control} required />
+                <FormField label="Message" name="message" type="textarea" control={contactForm.control} required />
                 <button
                   type="submit"
                   className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-medium transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
@@ -281,14 +281,14 @@ export function StudiosConnect({ className }: StudiosConnectProps) {
               <h3 className="text-2xl font-bold text-white mb-6 text-center">Request a Quote</h3>
               <form onSubmit={quoteForm.handleSubmit(onQuoteSubmit)} className="space-y-4">
                 <div className="grid md:grid-cols-2 gap-4">
-                  <FormField label="Name" name="name" form={quoteForm} required />
-                  <FormField label="Email" name="email" type="email" form={quoteForm} required />
+                  <FormField label="Name" name="name" control={quoteForm.control} required />
+                  <FormField label="Email" name="email" type="email" control={quoteForm.control} required />
                 </div>
-                <FormField label="Company" name="company" form={quoteForm} />
+                <FormField label="Company" name="company" control={quoteForm.control} />
                 <FormField
                   label="Project Type"
                   name="projectType"
-                  as="select"
+                  type="select"
                   options={[
                     { value: 'film', label: 'Film Production' },
                     { value: 'photography', label: 'Photography' },
@@ -297,41 +297,40 @@ export function StudiosConnect({ className }: StudiosConnectProps) {
                     { value: 'event', label: 'Live Event' },
                     { value: 'other', label: 'Other' },
                   ]}
-                  form={quoteForm}
+                  control={quoteForm.control}
                   required
                 />
                 <div className="grid md:grid-cols-2 gap-4">
                   <FormField
                     label="Budget Range"
                     name="budget"
-                    as="select"
+                    type="select"
                     options={[
                       { value: '5k-10k', label: '$5K - $10K' },
                       { value: '10k-25k', label: '$10K - $25K' },
                       { value: '25k-50k', label: '$25K - $50K' },
                       { value: '50k+', label: '$50K+' },
                     ]}
-                    form={quoteForm}
+                    control={quoteForm.control}
                   />
                   <FormField
                     label="Timeline"
                     name="timeline"
-                    as="select"
+                    type="select"
                     options={[
                       { value: 'asap', label: 'ASAP' },
                       { value: '1-2weeks', label: '1-2 Weeks' },
                       { value: '1month', label: '1 Month' },
                       { value: 'flexible', label: 'Flexible' },
                     ]}
-                    form={quoteForm}
+                    control={quoteForm.control}
                   />
                 </div>
                 <FormField
                   label="Project Details"
                   name="details"
-                  as="textarea"
-                  rows={5}
-                  form={quoteForm}
+                  type="textarea"
+                  control={quoteForm.control}
                   required
                 />
                 <button

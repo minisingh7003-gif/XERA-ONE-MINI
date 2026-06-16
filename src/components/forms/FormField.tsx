@@ -1,10 +1,8 @@
-import { forwardRef, type InputHTMLAttributes, type TextareaHTMLAttributes } from 'react';
-import { useFormContext, Controller, type RegisterOptions } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
+import { forwardRef, type InputHTMLAttributes, type TextareaHTMLAttributes, type SelectHTMLAttributes } from 'react';
+import { Controller, type Control, type FieldValues, type Path, type RegisterOptions } from 'react-hook-form';
 
 // ============================================
-// Form Components
+// Base Input Components
 // ============================================
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -20,7 +18,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className="w-full">
         {label && (
-          <label htmlFor={inputId} className="label">
+          <label htmlFor={inputId} className="block text-sm font-medium text-neutral-300 mb-2">
             {label}
           </label>
         )}
@@ -29,14 +27,13 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           id={inputId}
           className={`
             w-full px-4 py-3 bg-neutral-900 border rounded-lg text-neutral-100
-            placeholder:text-neutral-500
-            focus:outline-none transition-colors
-            ${error ? 'border-error-500 focus:border-error-500 focus:ring-1 focus:ring-error-500' : 'border-neutral-700 focus:border-primary-500 focus:ring-1 focus:ring-primary-500'}
+            placeholder:text-neutral-500 focus:outline-none transition-colors
+            ${error ? 'border-error-500 focus:border-error-500' : 'border-neutral-700 focus:border-primary-500'}
             ${className}
           `}
           {...props}
         />
-        {error && <p className="form-error">{error}</p>}
+        {error && <p className="mt-1 text-sm text-error-500">{error}</p>}
         {helperText && !error && <p className="mt-1 text-sm text-neutral-500">{helperText}</p>}
       </div>
     );
@@ -59,7 +56,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
     return (
       <div className="w-full">
         {label && (
-          <label htmlFor={textareaId} className="label">
+          <label htmlFor={textareaId} className="block text-sm font-medium text-neutral-300 mb-2">
             {label}
           </label>
         )}
@@ -70,12 +67,12 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
             w-full px-4 py-3 bg-neutral-900 border rounded-lg text-neutral-100
             placeholder:text-neutral-500 resize-y min-h-[120px]
             focus:outline-none transition-colors
-            ${error ? 'border-error-500 focus:border-error-500 focus:ring-1 focus:ring-error-500' : 'border-neutral-700 focus:border-primary-500 focus:ring-1 focus:ring-primary-500'}
+            ${error ? 'border-error-500 focus:border-error-500' : 'border-neutral-700 focus:border-primary-500'}
             ${className}
           `}
           {...props}
         />
-        {error && <p className="form-error">{error}</p>}
+        {error && <p className="mt-1 text-sm text-error-500">{error}</p>}
         {helperText && !error && <p className="mt-1 text-sm text-neutral-500">{helperText}</p>}
       </div>
     );
@@ -85,7 +82,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
 Textarea.displayName = 'Textarea';
 
 // Select component
-interface SelectProps extends InputHTMLAttributes<HTMLSelectElement> {
+interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   label?: string;
   error?: string;
   options: { value: string; label: string }[];
@@ -99,7 +96,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
     return (
       <div className="w-full">
         {label && (
-          <label htmlFor={selectId} className="label">
+          <label htmlFor={selectId} className="block text-sm font-medium text-neutral-300 mb-2">
             {label}
           </label>
         )}
@@ -108,13 +105,16 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
           id={selectId}
           className={`
             w-full px-4 py-3 bg-neutral-900 border rounded-lg text-neutral-100
-            focus:outline-none transition-colors appearance-none
-            bg-[url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23a3a3a3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E")]
+            focus:outline-none transition-colors appearance-none cursor-pointer
             bg-no-repeat bg-right-3
-            ${error ? 'border-error-500 focus:border-error-500 focus:ring-1 focus:ring-error-500' : 'border-neutral-700 focus:border-primary-500 focus:ring-1 focus:ring-primary-500'}
+            ${error ? 'border-error-500 focus:border-error-500' : 'border-neutral-700 focus:border-primary-500'}
             ${className}
           `}
-          style={{ backgroundPosition: 'right 12px center', backgroundSize: '16px' }}
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23a3a3a3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E")`,
+            backgroundPosition: 'right 12px center',
+            backgroundSize: '16px'
+          }}
           {...props}
         >
           {placeholder && (
@@ -128,7 +128,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
             </option>
           ))}
         </select>
-        {error && <p className="form-error">{error}</p>}
+        {error && <p className="mt-1 text-sm text-error-500">{error}</p>}
       </div>
     );
   }
@@ -136,57 +136,24 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
 
 Select.displayName = 'Select';
 
-// Checkbox component
-interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
-  label: string;
-  error?: string;
-}
-
-export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
-  ({ label, error, className = '', id, ...props }, ref) => {
-    const checkboxId = id || `checkbox-${Math.random().toString(36).substring(7)}`;
-
-    return (
-      <div className="w-full">
-        <label htmlFor={checkboxId} className={`flex items-center gap-3 cursor-pointer ${className}`}>
-          <input
-            ref={ref}
-            id={checkboxId}
-            type="checkbox"
-            className="
-              w-5 h-5 rounded border-2 border-neutral-700 bg-neutral-900
-              checked:bg-primary-500 checked:border-primary-500
-              focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-neutral-950
-              transition-colors cursor-pointer
-            "
-            {...props}
-          />
-          <span className="text-sm text-neutral-300">{label}</span>
-        </label>
-        {error && <p className="form-error ml-8">{error}</p>}
-      </div>
-    );
-  }
-);
-
-Checkbox.displayName = 'Checkbox';
-
 // ============================================
-// React Hook Form Integration
+// Form Field Component - Works with control prop
 // ============================================
 
-interface FormFieldProps {
-  name: string;
+interface FormFieldProps<T extends FieldValues = FieldValues> {
+  name: Path<T>;
   label?: string;
-  type?: 'text' | 'email' | 'password' | 'textarea' | 'select' | 'checkbox';
+  type?: 'text' | 'email' | 'password' | 'tel' | 'textarea' | 'select';
   placeholder?: string;
   helperText?: string;
   options?: { value: string; label: string }[];
   rules?: RegisterOptions;
   className?: string;
+  control: Control<T>;
+  required?: boolean;
 }
 
-export function FormField({
+export function FormField<T extends FieldValues>({
   name,
   label,
   type = 'text',
@@ -195,9 +162,8 @@ export function FormField({
   options,
   rules,
   className = '',
-}: FormFieldProps) {
-  const { control } = useFormContext();
-
+  control,
+}: FormFieldProps<T>) {
   return (
     <Controller
       name={name}
@@ -227,17 +193,6 @@ export function FormField({
                 className={className}
               />
             );
-          case 'checkbox':
-            return (
-              <Checkbox
-                {...field}
-                label={label || ''}
-                error={error?.message}
-                checked={field.value}
-                onChange={(e) => field.onChange(e.target.checked)}
-                className={className}
-              />
-            );
           default:
             return (
               <Input
@@ -256,52 +211,3 @@ export function FormField({
   );
 }
 
-// ============================================
-// Common Validation Schemas
-// ============================================
-
-export const commonSchemas = {
-  email: z.string().email('Please enter a valid email address'),
-  password: z.string().min(8, 'Password must be at least 8 characters'),
-  name: z.string().min(2, 'Name must be at least 2 characters'),
-  phone: z.string().regex(/^\+?[\d\s-]{10,}$/, 'Please enter a valid phone number'),
-  url: z.string().url('Please enter a valid URL'),
-  required: z.string().min(1, 'This field is required'),
-};
-
-// Contact form schema
-export const contactFormSchema = z.object({
-  name: commonSchemas.name,
-  email: commonSchemas.email,
-  subject: commonSchemas.required,
-  message: z.string().min(10, 'Message must be at least 10 characters'),
-});
-
-// Newsletter form schema
-export const newsletterFormSchema = z.object({
-  email: commonSchemas.email,
-});
-
-// Login form schema
-export const loginFormSchema = z.object({
-  email: commonSchemas.email,
-  password: commonSchemas.password,
-});
-
-// Registration form schema
-export const registerFormSchema = z.object({
-  name: commonSchemas.name,
-  email: commonSchemas.email,
-  password: commonSchemas.password,
-  confirmPassword: z.string(),
-}).refine((data) => data.password === data.confirmPassword, {
-  message: "Passwords don't match",
-  path: ['confirmPassword'],
-});
-
-export type ContactFormData = z.infer<typeof contactFormSchema>;
-export type NewsletterFormData = z.infer<typeof newsletterFormSchema>;
-export type LoginFormData = z.infer<typeof loginFormSchema>;
-export type RegisterFormData = z.infer<typeof registerFormSchema>;
-
-export { zodResolver };

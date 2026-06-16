@@ -106,10 +106,10 @@ export function MaxContact() {
               onSubmit={form.handleSubmit(onSubmit)}
               className="space-y-4"
             >
-              <FormField label="Name" name="name" form={form} required />
-              <FormField label="Email" name="email" type="email" form={form} required />
-              <FormField label="Subject" name="subject" form={form} required />
-              <FormField label="Message" name="message" as="textarea" rows={4} form={form} required />
+              <FormField label="Name" name="name" control={form.control} required />
+              <FormField label="Email" name="email" type="email" control={form.control} required />
+              <FormField label="Subject" name="subject" control={form.control} required />
+              <FormField label="Message" name="message" type="textarea" control={form.control} required />
               <button
                 type="submit"
                 className="w-full flex items-center justify-center gap-2 py-4 rounded-lg font-semibold transition-all hover:scale-[1.02] active:scale-[0.98]"
