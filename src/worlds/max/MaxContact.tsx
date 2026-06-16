@@ -1,216 +1,125 @@
+// ============================================
+// Max Contact - Simple Contact Form
+// ============================================
+
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Clock, Instagram, Linkedin, Twitter, Youtube } from 'lucide-react';
-import { staggerContainer, staggerItem } from '@/hooks/useMotion';
+import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { FormField } from '@/components/forms';
 
-const socialIcons = {
-  instagram: Instagram,
-  linkedin: Linkedin,
-  twitter: Twitter,
-  youtube: Youtube,
-};
+const contactSchema = z.object({
+  name: z.string().min(2, 'Name is required'),
+  email: z.string().email('Valid email required'),
+  subject: z.string().min(5, 'Subject is required'),
+  message: z.string().min(10, 'Message must be at least 10 characters'),
+});
 
-interface MaxContactProps {
-  sectionTitle: string;
-  headline: string;
-  description: string;
-  email: string;
-  phone: string;
-  address: {
-    street: string;
-    city: string;
-    state: string;
-    zip: string;
-    country: string;
-  };
-  hours: {
-    weekdays: string;
-    weekends: string;
-  };
-  social: {
-    instagram: string;
-    linkedin: string;
-    twitter: string;
-    youtube: string;
-  };
-}
+export function MaxContact() {
+  const form = useForm({
+    resolver: zodResolver(contactSchema),
+    defaultValues: { name: '', email: '', subject: '', message: '' },
+  });
 
-export function MaxContact({
-  sectionTitle,
-  headline,
-  description,
-  email,
-  phone,
-  address,
-  hours,
-  social,
-}: MaxContactProps) {
+  const onSubmit = (data: any) => {
+    console.log('Max contact submitted:', data);
+    // Handle submission - send to individual endpoint
+  };
+
   return (
-    <section id="contact" className="relative py-32" style={{ background: '#020814' }}>
-      <div className="container mx-auto px-4">
-        <div className="grid lg:grid-cols-2 gap-16">
-          {/* Left: Info */}
+    <section id="contact" className="relative py-32 overflow-hidden" style={{ background: '#020814' }}>
+      {/* Background glow */}
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-10"
+        style={{ background: 'radial-gradient(circle, #00d4ff 0%, transparent 70%)' }}
+      />
+
+      <div className="relative z-10 container mx-auto px-4">
+        <div className="max-w-4xl mx-auto">
+          {/* Section Header */}
           <motion.div
-            variants={staggerContainer}
-            initial="initial"
-            whileInView="animate"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            className="text-center mb-12"
           >
-            <motion.div variants={staggerItem} className="mb-4">
-              <span className="text-sm font-semibold tracking-wider uppercase" style={{ color: '#00BFFF' }}>
-                {sectionTitle}
-              </span>
-            </motion.div>
+            <span className="text-sm font-semibold tracking-wider uppercase" style={{ color: '#00d4ff' }}>
+              Contact
+            </span>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mt-4 mb-6">
+              Let's <span style={{ color: '#00d4ff' }}>Connect</span>
+            </h2>
+            <p className="text-lg text-white/60">
+              Ready to maximize your digital presence? We're here to help.
+            </p>
+          </motion.div>
 
-            <motion.h2 variants={staggerItem} className="text-4xl md:text-5xl font-bold text-white mb-6">
-              {headline}
-            </motion.h2>
-
-            <motion.p variants={staggerItem} className="text-lg text-white/70 mb-12">
-              {description}
-            </motion.p>
-
+          <div className="grid md:grid-cols-2 gap-12">
             {/* Contact Info */}
-            <motion.div variants={staggerContainer} className="space-y-6">
-              <motion.div variants={staggerItem} className="flex items-start gap-4">
-                <div
-                  className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0"
-                  style={{ background: 'rgba(0, 191, 255, 0.15)' }}
-                >
-                  <Mail className="w-5 h-5" style={{ color: '#00BFFF' }} />
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="space-y-8"
+            >
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-lg flex items-center justify-center shrink-0" style={{ background: 'rgba(0, 212, 255, 0.15)' }}>
+                  <Mail className="w-6 h-6" style={{ color: '#00d4ff' }} />
                 </div>
                 <div>
-                  <div className="text-sm text-white/50 mb-1">Email</div>
-                  <a href={`mailto:${email}`} className="text-white hover:opacity-80 transition-opacity">
-                    {email}
+                  <h3 className="text-lg font-semibold text-white mb-1">Email Us</h3>
+                  <a href="mailto:hello@xera-max.com" className="text-white/60 hover:text-white transition-colors">
+                    hello@xera-max.com
                   </a>
                 </div>
-              </motion.div>
+              </div>
 
-              <motion.div variants={staggerItem} className="flex items-start gap-4">
-                <div
-                  className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0"
-                  style={{ background: 'rgba(0, 191, 255, 0.15)' }}
-                >
-                  <Phone className="w-5 h-5" style={{ color: '#00BFFF' }} />
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-lg flex items-center justify-center shrink-0" style={{ background: 'rgba(0, 212, 255, 0.15)' }}>
+                  <Phone className="w-6 h-6" style={{ color: '#00d4ff' }} />
                 </div>
                 <div>
-                  <div className="text-sm text-white/50 mb-1">Phone</div>
-                  <a href={`tel:${phone}`} className="text-white hover:opacity-80 transition-opacity">
-                    {phone}
+                  <h3 className="text-lg font-semibold text-white mb-1">Call Us</h3>
+                  <a href="tel:+1234567890" className="text-white/60 hover:text-white transition-colors">
+                    +1 (234) 567-890
                   </a>
                 </div>
-              </motion.div>
+              </div>
 
-              <motion.div variants={staggerItem} className="flex items-start gap-4">
-                <div
-                  className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0"
-                  style={{ background: 'rgba(0, 191, 255, 0.15)' }}
-                >
-                  <MapPin className="w-5 h-5" style={{ color: '#00BFFF' }} />
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-lg flex items-center justify-center shrink-0" style={{ background: 'rgba(0, 212, 255, 0.15)' }}>
+                  <MapPin className="w-6 h-6" style={{ color: '#00d4ff' }} />
                 </div>
                 <div>
-                  <div className="text-sm text-white/50 mb-1">Address</div>
-                  <div className="text-white">
-                    {address.street}<br />
-                    {address.city}, {address.state} {address.zip}<br />
-                    {address.country}
-                  </div>
+                  <h3 className="text-lg font-semibold text-white mb-1">Location</h3>
+                  <p className="text-white/60">San Francisco, California</p>
                 </div>
-              </motion.div>
-
-              <motion.div variants={staggerItem} className="flex items-start gap-4">
-                <div
-                  className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0"
-                  style={{ background: 'rgba(0, 191, 255, 0.15)' }}
-                >
-                  <Clock className="w-5 h-5" style={{ color: '#00BFFF' }} />
-                </div>
-                <div>
-                  <div className="text-sm text-white/50 mb-1">Hours</div>
-                  <div className="text-white">
-                    Mon - Fri: {hours.weekdays}<br />
-                    Sat - Sun: {hours.weekends}
-                  </div>
-                </div>
-              </motion.div>
+              </div>
             </motion.div>
 
-            {/* Social Links */}
-            <motion.div variants={staggerItem} className="flex gap-3 mt-10">
-              {Object.entries(social).map(([platform, url]) => {
-                const IconComponent = socialIcons[platform as keyof typeof socialIcons];
-                if (!IconComponent) return null;
-                return (
-                  <a
-                    key={platform}
-                    href={url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-lg border flex items-center justify-center transition-all duration-300"
-                    style={{
-                      background: 'rgba(0, 191, 255, 0.05)',
-                      borderColor: 'rgba(0, 191, 255, 0.2)',
-                      color: '#00BFFF',
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = 'rgba(0, 191, 255, 0.15)';
-                      e.currentTarget.style.borderColor = 'rgba(0, 191, 255, 0.5)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = 'rgba(0, 191, 255, 0.05)';
-                      e.currentTarget.style.borderColor = 'rgba(0, 191, 255, 0.2)';
-                    }}
-                  >
-                    <IconComponent className="w-5 h-5" />
-                  </a>
-                );
-              })}
-            </motion.div>
-          </motion.div>
-
-          {/* Right: Quick Links */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="rounded-2xl p-8 border"
-            style={{ background: 'rgba(0, 191, 255, 0.02)', borderColor: 'rgba(0, 191, 255, 0.15)' }}
-          >
-            <h3 className="text-xl font-bold text-white mb-6">Quick Links</h3>
-            <ul className="space-y-3">
-              <li>
-                <a href="#solutions" className="text-white/70 hover:text-white transition-colors flex items-center gap-2">
-                  <span>Media Solutions</span>
-                </a>
-              </li>
-              <li>
-                <a href="#partnerships" className="text-white/70 hover:text-white transition-colors flex items-center gap-2">
-                  <span>Creator Partnerships</span>
-                </a>
-              </li>
-              <li>
-                <a href="#analytics" className="text-white/70 hover:text-white transition-colors flex items-center gap-2">
-                  <span>Analytics Platform</span>
-                </a>
-              </li>
-              <li>
-                <a href="#case-studies" className="text-white/70 hover:text-white transition-colors flex items-center gap-2">
-                  <span>Case Studies</span>
-                </a>
-              </li>
-            </ul>
-
-            <div className="mt-8 pt-8 border-t border-white/10">
-              <p className="text-white/50 text-sm mb-4">Ready to amplify your content?</p>
-              <a
-                href="#enquiry"
-                className="inline-block px-6 py-3 font-semibold rounded-lg transition-all duration-300"
-                style={{ background: '#00BFFF', color: '#020814' }}
+            {/* Contact Form */}
+            <motion.form
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="space-y-4"
+            >
+              <FormField label="Name" name="name" form={form} required />
+              <FormField label="Email" name="email" type="email" form={form} required />
+              <FormField label="Subject" name="subject" form={form} required />
+              <FormField label="Message" name="message" as="textarea" rows={4} form={form} required />
+              <button
+                type="submit"
+                className="w-full flex items-center justify-center gap-2 py-4 rounded-lg font-semibold transition-all hover:scale-[1.02] active:scale-[0.98]"
+                style={{ background: '#00d4ff', color: '#000', boxShadow: '0 0 20px rgba(0, 212, 255, 0.4)' }}
               >
-                Get Started
-              </a>
-            </div>
-          </motion.div>
+                <Send className="w-5 h-5" />
+                Send Message
+              </button>
+            </motion.form>
+          </div>
         </div>
       </div>
     </section>

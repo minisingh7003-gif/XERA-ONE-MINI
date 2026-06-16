@@ -1,45 +1,23 @@
 // ============================================
 // Max World - Main Component
+// Removed: Ecosystem, Solutions, Case Studies, FAQ
+// Added: Blog (in About), Merch (with payments)
 // ============================================
 
-import { maxData } from '@/data/max';
 import { CinematicBackground } from '@/components/effects';
 import { MaxHeader } from '@/components/layout';
 import { SEO, createWorldSEO } from '@/components/seo';
 import {
   MaxHero,
   MaxAbout,
-  MaxEcosystem,
-  MaxSolutions,
-  MaxPortfolio,
-  MaxPartnerships,
-  MaxDistribution,
-  MaxAnalytics,
-  MaxCaseStudies,
+  MaxMerch,
   MaxGrowth,
+  MaxPartnerships,
   MaxTestimonials,
-  MaxFAQ,
   MaxContact,
-  MaxEnquiry,
 } from './';
 
 export function MaxWorld() {
-  const {
-    hero,
-    about,
-    ecosystem,
-    solutions,
-    partnerships,
-    distribution,
-    analytics,
-    caseStudies,
-    growth,
-    testimonials,
-    faq,
-    contact,
-    enquiry,
-  } = maxData;
-
   const seoConfig = createWorldSEO(
     'max',
     'X-ERA Max',
@@ -55,66 +33,59 @@ export function MaxWorld() {
       <MaxHeader />
 
       <div className="relative min-h-screen overflow-hidden" style={{ background: '#020814' }}>
-        {/* Cinematic Background - static, no heavy animation */}
+        {/* Cinematic Background */}
         <CinematicBackground worldId="max" />
 
         {/* Main Content */}
         <div className="relative z-10 pt-28">
           {/* Hero Section */}
-          <MaxHero {...hero} />
+          <MaxHero
+            title="X-ERA Max"
+            subtitle="Peak Performance Technology"
+            description="High-performance technology solutions and digital innovation hub for the modern enterprise."
+          />
 
-          {/* Content Sections */}
+          {/* About - with Blog & Instagram */}
           <div id="about">
-            <MaxAbout {...about} />
+            <MaxAbout />
           </div>
 
-          <div id="ecosystem">
-            <MaxEcosystem {...ecosystem} />
+          {/* Merch Store */}
+          <div id="merch">
+            <MaxMerch />
           </div>
 
-          <div id="solutions">
-            <MaxSolutions {...solutions} />
+          {/* Growth */}
+          <div id="growth">
+            <MaxGrowth />
           </div>
 
-          <div id="portfolio">
-            <MaxPortfolio />
+          {/* Partnerships */}
+          <div id="partnerships">
+            <MaxPartnerships />
           </div>
 
-          <MaxPartnerships {...partnerships} />
-
-          <div id="distribution">
-            <MaxDistribution {...distribution} />
-          </div>
-
-          <MaxAnalytics {...analytics} />
-
-          <div id="case-studies">
-            <MaxCaseStudies {...caseStudies} />
-          </div>
-
-          <MaxGrowth {...growth} />
-
+          {/* Testimonials */}
           <div id="testimonials">
-            <MaxTestimonials {...testimonials} />
+            <MaxTestimonials />
           </div>
 
-          <div id="faq">
-            <MaxFAQ {...faq} />
-          </div>
-
-          <div id="contact">
-            <MaxContact {...contact} />
-          </div>
-
-          <MaxEnquiry {...enquiry} />
+          {/* Contact */}
+          <MaxContact />
 
           {/* Footer */}
-          <footer className="py-16 border-t border-neutral-800" style={{ background: '#020814' }}>
+          <footer className="py-16 border-t" style={{ background: '#020814', borderColor: 'rgba(0, 212, 255, 0.2)' }}>
             <div className="container mx-auto px-4 text-center">
               <div className="mb-6">
-                <span className="text-2xl font-bold" style={{ color: '#00BFFF' }}>
+                <span className="text-2xl font-bold" style={{ color: '#00d4ff', textShadow: '0 0 20px rgba(0, 212, 255, 0.5)' }}>
                   X-ERA Max
                 </span>
+              </div>
+              <div className="flex justify-center gap-6 mb-8">
+                <a href="#" className="text-white/50 hover:text-white transition-colors">Instagram</a>
+                <a href="#" className="text-white/50 hover:text-white transition-colors">YouTube</a>
+                <a href="#" className="text-white/50 hover:text-white transition-colors">LinkedIn</a>
+                <a href="#" className="text-white/50 hover:text-white transition-colors">Twitter</a>
               </div>
               <p className="text-white/50 text-sm">
                 &copy; {new Date().getFullYear()} X-ERA ONE. All rights reserved.

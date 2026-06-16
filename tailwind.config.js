@@ -99,8 +99,8 @@ export default {
         },
         // World-specific colors
         studios: {
-          primary: '#FF2A2A',
-          secondary: '#FF5C5C',
+          primary: '#FF2020',
+          secondary: '#ff4040',
           accent: '#f5c518',
         },
         max: {
@@ -109,9 +109,9 @@ export default {
           accent: '#00ff88',
         },
         infinity: {
-          primary: '#8b5cf6',
-          secondary: '#1e1b4b',
-          accent: '#ec4899',
+          primary: '#00ff6a',
+          secondary: '#00cc55',
+          accent: '#00ff88',
         },
       },
       fontFamily: {

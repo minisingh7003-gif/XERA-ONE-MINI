@@ -1,11 +1,8 @@
 export { StudiosWorld } from './StudiosWorld';
 export { StudiosHero } from './StudiosHero';
-export { StudiosAbout } from './StudiosAbout';
 export { StudiosServices } from './StudiosServices';
 export { StudiosPortfolio } from './StudiosPortfolio';
 export { StudiosProcess } from './StudiosProcess';
 export { StudiosTeam } from './StudiosTeam';
 export { StudiosTestimonials } from './StudiosTestimonials';
-export { StudiosFAQ } from './StudiosFAQ';
-export { StudiosContact } from './StudiosContact';
-export { StudiosEnquiry } from './StudiosEnquiry';
+export { StudiosConnect } from './StudiosConnect';

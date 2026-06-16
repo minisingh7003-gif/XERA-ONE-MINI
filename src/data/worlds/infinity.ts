@@ -17,11 +17,11 @@ export const infinityConfig: WorldConfig = {
     aspectRatio: '16:9',
   },
   theme: {
-    primary: '#8b5cf6',
-    secondary: '#1e1b4b',
-    accent: '#ec4899',
-    gradient: 'linear-gradient(135deg, #8b5cf6 0%, #6366f1 30%, #ec4899 70%, #1e1b4b 100%)',
-    glowColor: 'rgba(139, 92, 246, 0.5)',
+    primary: '#00ff6a',
+    secondary: '#00cc55',
+    accent: '#00ff88',
+    gradient: 'linear-gradient(135deg, #00ff6a 0%, #00d4ff 50%, #00cc55 100%)',
+    glowColor: 'rgba(0, 255, 106, 0.5)',
   },
   features: [
     {

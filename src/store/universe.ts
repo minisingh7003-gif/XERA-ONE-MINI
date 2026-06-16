@@ -3,11 +3,13 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 import type { WorldId, WorldConfig, UniverseStore } from '@/types';
 import { worldConfigs } from '@/data';
 
-type ViewState = 'gateway' | 'transitioning' | 'world';
+type ViewState = 'loading' | 'gateway' | 'transitioning' | 'world';
 
 export const useUniverseStore = create<UniverseStore & {
   viewState: ViewState;
   transitionProgress: number;
+  hasEntered: boolean;
+  enterUniverse: () => void;
   enterWorld: (worldId: WorldId) => void;
   exitWorld: () => void;
   setTransitionComplete: () => void;
@@ -22,8 +24,9 @@ export const useUniverseStore = create<UniverseStore & {
       theme: 'dark',
       reducedMotion: false,
       worldConfigs,
-      viewState: 'gateway',
+      viewState: 'loading',
       transitionProgress: 0,
+      hasEntered: false,
 
       // Actions
       setCurrentWorld: (worldId: WorldId | null) => set({ currentWorld: worldId }),
@@ -43,12 +46,21 @@ export const useUniverseStore = create<UniverseStore & {
         return get().worldConfigs[worldId];
       },
 
+      // Enter the universe (after buffer loading)
+      enterUniverse: () => {
+        set({
+          hasEntered: true,
+          viewState: 'world',
+          currentWorld: 'max',
+        });
+      },
+
       // New world management actions
       enterWorld: (worldId: WorldId) => {
         set({
-          isTransitioning: true,
-          viewState: 'transitioning',
-          transitionProgress: 0,
+          isTransitioning: false,
+          viewState: 'world',
+          transitionProgress: 1,
           currentWorld: worldId,
         });
 

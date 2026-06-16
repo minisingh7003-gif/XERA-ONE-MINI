@@ -1,15 +1,8 @@
 export { MaxWorld } from './MaxWorld';
 export { MaxHero } from './MaxHero';
 export { MaxAbout } from './MaxAbout';
-export { MaxEcosystem } from './MaxEcosystem';
-export { MaxSolutions } from './MaxSolutions';
-export { MaxPartnerships } from './MaxPartnerships';
-export { MaxDistribution } from './MaxDistribution';
-export { MaxAnalytics } from './MaxAnalytics';
-export { MaxCaseStudies } from './MaxCaseStudies';
+export { MaxMerch } from './MaxMerch';
 export { MaxGrowth } from './MaxGrowth';
+export { MaxPartnerships } from './MaxPartnerships';
 export { MaxTestimonials } from './MaxTestimonials';
-export { MaxFAQ } from './MaxFAQ';
 export { MaxContact } from './MaxContact';
-export { MaxEnquiry } from './MaxEnquiry';
-export { MaxPortfolio } from './MaxPortfolio';
