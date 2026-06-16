@@ -1,0 +1,15 @@
+export { InfinityWorld } from './InfinityWorld';
+export { InfinityHero } from './InfinityHero';
+export { InfinityAbout } from './InfinityAbout';
+export { InfinityAISolutions } from './InfinityAISolutions';
+export { InfinityProducts } from './InfinityProducts';
+export { InfinityResearch } from './InfinityResearch';
+export { InfinityAutomation } from './InfinityAutomation';
+export { InfinityPipeline } from './InfinityPipeline';
+export { InfinityCaseStudies } from './InfinityCaseStudies';
+export { InfinityRoadmap } from './InfinityRoadmap';
+export { InfinityPartners } from './InfinityPartners';
+export { InfinityTestimonials } from './InfinityTestimonials';
+export { InfinityFAQ } from './InfinityFAQ';
+export { InfinityContact } from './InfinityContact';
+export { InfinityEnquiry } from './InfinityEnquiry';
