@@ -15,6 +15,7 @@ import {
   InfinityTestimonials,
   InfinityConnect,
 } from './';
+import { infinityData } from '@/data/infinity';
 
 export function InfinityWorld() {
   const seoConfig = createWorldSEO(
@@ -38,15 +39,11 @@ export function InfinityWorld() {
         {/* Main Content */}
         <div className="relative z-10 pt-28">
           {/* Hero Section */}
-          <InfinityHero
-            title="X-ERA Infinity"
-            subtitle="Beyond Boundaries"
-            description="Immersive entertainment and gaming universe featuring interactive experiences and next-generation digital entertainment."
-          />
+          <InfinityHero {...infinityData.hero} />
 
           {/* About with Social Media */}
           <div id="about">
-            <InfinityAbout />
+            <InfinityAbout {...infinityData.about} />
           </div>
 
           {/* Projects - Team, Collaborations, Process */}
@@ -54,7 +51,7 @@ export function InfinityWorld() {
 
           {/* Testimonials */}
           <div id="testimonials">
-            <InfinityTestimonials />
+            <InfinityTestimonials {...infinityData.testimonials} />
           </div>
 
           {/* Connect - Combined FAQ + Contact */}

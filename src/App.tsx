@@ -1,18 +1,22 @@
 import { useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useUniverseStore } from '@/store';
 import { BufferLoader } from '@/components/effects';
 import { SuperHeader } from '@/components/layout';
 import { StudiosWorld } from './worlds/studios';
 import { MaxWorld } from './worlds/max';
 import { InfinityWorld } from './worlds/infinity';
-import type { WorldId } from '@/types';
 
-function App() {
+function AppContent() {
+  const location = useLocation();
   const theme = useUniverseStore((state) => state.theme);
   const reducedMotion = useUniverseStore((state) => state.reducedMotion);
   const hasEntered = useUniverseStore((state) => state.hasEntered);
   const enterUniverse = useUniverseStore((state) => state.enterUniverse);
+  const setCurrentWorld = useUniverseStore((state) => state.setCurrentWorld);
+
+  // Get current world from URL path
+  const pathWorld = location.pathname.split('/')[1] as 'studios' | 'max' | 'infinity' | '';
 
   // Apply theme class to document
   useEffect(() => {
@@ -34,6 +38,13 @@ function App() {
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, [reducedMotion]);
 
+  // Update current world based on URL
+  useEffect(() => {
+    if (hasEntered && (pathWorld === 'studios' || pathWorld === 'max' || pathWorld === 'infinity')) {
+      setCurrentWorld(pathWorld);
+    }
+  }, [pathWorld, hasEntered, setCurrentWorld]);
+
   // Handle buffer loading complete
   const handleLoadingComplete = () => {
     enterUniverse();
@@ -45,19 +56,25 @@ function App() {
   }
 
   return (
+    <div className="min-h-screen bg-black text-white">
+      <SuperHeader />
+      <main className="pt-16">
+        <Routes>
+          <Route path="/" element={<Navigate to="/max" replace />} />
+          <Route path="/studios/*" element={<StudiosWorld />} />
+          <Route path="/max/*" element={<MaxWorld />} />
+          <Route path="/infinity/*" element={<InfinityWorld />} />
+          <Route path="*" element={<Navigate to="/max" replace />} />
+        </Routes>
+      </main>
+    </div>
+  );
+}
+
+function App() {
+  return (
     <BrowserRouter>
-      <div className="min-h-screen bg-black text-white">
-        <SuperHeader />
-        <main className="pt-16">
-          <Routes>
-            <Route path="/" element={<Navigate to="/max" replace />} />
-            <Route path="/studios/*" element={<StudiosWorld />} />
-            <Route path="/max/*" element={<MaxWorld />} />
-            <Route path="/infinity/*" element={<InfinityWorld />} />
-            <Route path="*" element={<Navigate to="/max" replace />} />
-          </Routes>
-        </main>
-      </div>
+      <AppContent />
     </BrowserRouter>
   );
 }

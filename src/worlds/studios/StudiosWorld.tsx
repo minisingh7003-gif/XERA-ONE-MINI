@@ -16,6 +16,7 @@ import {
   StudiosTestimonials,
   StudiosConnect,
 } from './';
+import { studiosData } from '@/data/studios';
 
 export function StudiosWorld() {
   const seoConfig = createWorldSEO(
@@ -32,49 +33,45 @@ export function StudiosWorld() {
       {/* World Header with Navigation */}
       <StudiosHeader />
 
-      <div className="relative min-h-screen overflow-hidden">
+      <div className="relative min-h-screen overflow-hidden bg-black">
         {/* Cinematic Background */}
         <CinematicBackground worldId="studios" />
 
         {/* Main Content */}
         <div className="relative z-10 pt-28">
           {/* Hero Section */}
-          <StudiosHero
-            title="X-ERA Studios"
-            subtitle="Where Vision Becomes Reality"
-            description="Full-service creative production studio specializing in film, photography, and digital content creation."
-          />
+          <StudiosHero {...studiosData.hero} />
 
           {/* Services */}
           <div id="services">
-            <StudiosServices />
+            <StudiosServices {...studiosData.services} />
           </div>
 
           {/* Portfolio */}
           <div id="portfolio">
-            <StudiosPortfolio />
+            <StudiosPortfolio {...studiosData.portfolio} />
           </div>
 
           {/* Process */}
           <div id="process">
-            <StudiosProcess />
+            <StudiosProcess {...studiosData.process} />
           </div>
 
           {/* Team */}
           <div id="team">
-            <StudiosTeam />
+            <StudiosTeam {...studiosData.team} />
           </div>
 
           {/* Testimonials */}
           <div id="testimonials">
-            <StudiosTestimonials />
+            <StudiosTestimonials {...studiosData.testimonials} />
           </div>
 
           {/* Connect - Combined FAQ + Contact + Quote */}
           <StudiosConnect />
 
           {/* Footer */}
-          <footer className="py-16 border-t border-neutral-800" style={{ borderColor: 'rgba(255,32,32,0.2)' }}>
+          <footer className="py-16 border-t" style={{ borderColor: 'rgba(255,32,32,0.2)' }}>
             <div className="container mx-auto px-4 text-center">
               <div className="mb-6">
                 <span className="text-2xl font-bold" style={{ color: '#FF2020', textShadow: '0 0 20px rgba(255,32,32,0.5)' }}>

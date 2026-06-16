@@ -317,7 +317,7 @@ export interface ScrollAnimationConfig extends AnimationConfig {
 // Store Types
 // ============================================
 
-export type ViewState = 'gateway' | 'transitioning' | 'world';
+export type ViewState = 'loading' | 'gateway' | 'transitioning' | 'world';
 
 export interface UniverseState {
   currentWorld: WorldId | null;
@@ -328,6 +328,7 @@ export interface UniverseState {
   worldConfigs: Record<WorldId, WorldConfig>;
   viewState: ViewState;
   transitionProgress: number;
+  hasEntered: boolean;
 }
 
 export interface UniverseActions {
@@ -337,6 +338,7 @@ export interface UniverseActions {
   toggleTheme: () => void;
   setReducedMotion: (reducedMotion: boolean) => void;
   getWorldConfig: (worldId: WorldId) => WorldConfig | undefined;
+  enterUniverse: () => void;
   enterWorld: (worldId: WorldId) => void;
   exitWorld: () => void;
   setTransitionComplete: () => void;

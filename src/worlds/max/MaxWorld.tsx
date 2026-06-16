@@ -16,6 +16,7 @@ import {
   MaxTestimonials,
   MaxContact,
 } from './';
+import { maxData } from '@/data/max';
 
 export function MaxWorld() {
   const seoConfig = createWorldSEO(
@@ -39,11 +40,7 @@ export function MaxWorld() {
         {/* Main Content */}
         <div className="relative z-10 pt-28">
           {/* Hero Section */}
-          <MaxHero
-            title="X-ERA Max"
-            subtitle="Peak Performance Technology"
-            description="High-performance technology solutions and digital innovation hub for the modern enterprise."
-          />
+          <MaxHero {...maxData.hero} />
 
           {/* About - with Blog & Instagram */}
           <div id="about">
@@ -57,17 +54,17 @@ export function MaxWorld() {
 
           {/* Growth */}
           <div id="growth">
-            <MaxGrowth />
+            <MaxGrowth {...maxData.growth} />
           </div>
 
           {/* Partnerships */}
           <div id="partnerships">
-            <MaxPartnerships />
+            <MaxPartnerships {...maxData.partnerships} />
           </div>
 
           {/* Testimonials */}
           <div id="testimonials">
-            <MaxTestimonials />
+            <MaxTestimonials {...maxData.testimonials} />
           </div>
 
           {/* Contact */}
